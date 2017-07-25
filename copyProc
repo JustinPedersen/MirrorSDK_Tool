@@ -1,0 +1,131 @@
+/*
+Sheep's Mirror SDK Tool
+
+**** Z proof list **** 
+> one selection per text scroll field 
+> Check if SDKs are even attatched to ATTrs
+
+
+*/ 
+
+string $win	= "Mirror_SDKS_Tool";
+
+
+// =======================================================  //
+/* =================== CREATING WINDOW ===================  */
+// =======================================================  //
+
+if( `window -ex $win` )
+deleteUI $win;
+
+window -mxb false -w 300 $win;
+    columnLayout;
+        rowColumnLayout -nc 2 -cs 10 5; 
+            button -l "Source" -w 150 -c LoadSource SourceBTN;
+            button -l "Destination" -w 150 -c LoadDestination DestinBTN;
+            separator -h 10;
+            separator -h 10;
+            text -l "Source Driver Attribute";
+            text -l "Destination Driver Attribute";
+            separator -h 10;
+            separator -h 10;
+            // Source Scroll list
+            textScrollList -ams false -h 300 -w 100 SourceSL;
+            // Destination Scroll list
+            textScrollList -ams false -h 300 -w 100 DestinSL;
+        setParent ..;
+        
+    columnLayout;
+    button -l "Move SDK" -w 300 -c MoveSDK;
+    
+
+
+
+showWindow $win;
+
+
+// =======================================================  //
+/* =================== Button Procedures =================  */
+// =======================================================  //
+
+// Loading the Selected Source Object
+proc LoadSource(){
+    textScrollList -e -ra SourceSL;
+    string $Sel[] = `ls -sl`;
+    string $SourceItems[] = `listAttr -v -k $Sel[0]`; 
+    for( $SourceItem in $SourceItems ){
+        textScrollList -e -a $SourceItem SourceSL;
+    }
+    // Editing the button to have the object's Name as its Label.
+    button -e -l $Sel[0] SourceBTN;
+}
+// Loading the Selected Destination Object
+proc LoadDestination(){
+    textScrollList -e -ra DestinSL;
+    string $Sel[] = `ls -sl`;
+    string $DestinItems[] = `listAttr -v -k`; 
+    for( $DestinItem in $DestinItems ){
+        textScrollList -e -a $DestinItem DestinSL;
+    }
+    // Editing the button to have the object's Name as its Label.
+    button -e -l $Sel[0] DestinBTN;
+}
+// =======================================================  //
+proc MoveSDK(){
+    // finding the Objects 
+    string $SourceObj = `button -q -l SourceBTN`;
+    string $DesitnObj = `button -q -l DestinBTN`;
+    // finding the Selected Items
+    string $SourceSel[] = `textScrollList -q -si SourceSL`;
+    string $DestinationSel[] = `textScrollList -q -si DestinSL`;
+    
+    
+}
+
+
+
+
+
+
+
+/*
+string $SourceTransCRV[] = `listConnections -t "animCurveUL"`;
+string $SourceRotateCRV[] = `listConnections -t "animCurveUA"`;
+string $SourceScaleCRV[] = `listConnections -t "animCurveUU"`;
+
+
+
+// -fc (x-axis of change) (Time)
+// -vc (y-axis of change) (Value)
+float $myFloat[] = `keyframe -q -fc`;
+float $myFloat[] = `keyframe -q -vc`;
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
